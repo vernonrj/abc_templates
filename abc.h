@@ -31,7 +31,7 @@ class Clonable
         return true;
     }
 public:
-    ~Clonable()
+    virtual ~Clonable()
     {
         assert(ValidateRequirements());
     }
@@ -51,7 +51,7 @@ class Sized
         return true;
     }
 public:
-    ~Sized()
+    virtual ~Sized()
     {
         assert(ValidateRequirements());
     }
@@ -73,7 +73,7 @@ class ConstIterable
         return true;
     }
 public:
-    ~ConstIterable()
+    virtual ~ConstIterable()
     {
         assert(ValidateRequirements());
     }
@@ -96,7 +96,7 @@ class MutIterable
         return true;
     }
 public:
-    ~MutIterable()
+    virtual ~MutIterable()
     {
         assert(ValidateRequirements());
     }
@@ -113,7 +113,9 @@ template<typename T>
 class Iterable :
     public ConstIterable<T>,
     public MutIterable<T>
-{};
+{
+    virtual ~Iterable() {};
+};
 
 
 /**
@@ -130,7 +132,7 @@ class Container
         return true;
     }
 public:
-    ~Container()
+    virtual ~Container()
     {
         assert(ValidateRequirements());
     }
@@ -160,7 +162,7 @@ public:
         assert(childobj != NULL);
     };
 
-    ~Sequence()
+    virtual ~Sequence()
     {
         assert(ValidateRequirements());
     }
