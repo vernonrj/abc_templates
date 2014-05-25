@@ -1,25 +1,40 @@
-#include <iostream>
-#include <vector>
+/**
+ * @file
+ *
+ * @brief implementation and example of use of abstract base classes
+ */
+#include <iostream>     // std::cout, std::endl
+#include <vector>       // std::vector
 
-#include "abc.h"
+#include "abc.h"        // Sequence
+
+
 
 /**
  * @brief Concrete implementation of Sequence Base Class
+ *
+ * This class is similar to an immutable vector. It supports many
+ * vector operations available for use with a const vector.
+ * It serves as an example of what you can do with templates + inheritance.
+ *
+ * This is currently the minimum amount needed to implement ABC::Sequence.
  */
 template<typename T>
-class MyList:
-    public Sequence<MyList<T>, T>
+class MyList :
+    public ABC::Sequence<MyList<T>, T>
 {
 public:
+    // iterator definitions
     typedef typename std::vector<T>::iterator iterator;
     typedef typename std::vector<T>::const_iterator const_iterator;
 
+
     MyList() :
-        Sequence<MyList<T>, T>(this)
+        ABC::Sequence<MyList<T>, T>(this)
     {};
 
     MyList(const std::vector<T> vec) :
-        Sequence<MyList<T>, T>(this),
+        ABC::Sequence<MyList<T>, T>(this),
         m_vec(vec)
     {};
 
@@ -34,10 +49,11 @@ public:
 
     /// @brief concrete implementation of Iterable end()
     const_iterator end() const { return m_vec.end(); }
-private:
-    /// contained vector class
-    std::vector<T> m_vec;
 
+private:
+
+    /// contained vector class
+    const std::vector<T> m_vec;
 };
 
 
@@ -45,6 +61,8 @@ private:
 int main()
 {
     using namespace std;
+
+    // start by building a vector
     std::vector<int> vec;
     vec.reserve(16);
     for (int i=0; i<10; i++) {
@@ -52,7 +70,10 @@ int main()
     }
     vec.push_back(6);
 
+    // now build our own immutable vectory type
     MyList<int> m(vec);
+
+    // print some attributes of our vectory type
     cout << m.Size() << endl;
     cout << m.Contains(5) << endl;
     cout << m.index(4) << endl;

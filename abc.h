@@ -7,10 +7,15 @@
  * using C++ templates. Sequence is implemented, and only requires
  * a bit more work to implement than python's Sequence class.
  */
-#include <algorithm>
+#include <algorithm>    // std::any_of
 
-#include <assert.h>
+#include <assert.h>     // assert
 
+/**
+ * @brief Abstract Base Class namespace
+ */
+namespace ABC
+{
 
 /**
  * @brief specifies that a class can be cloned using Clone()
@@ -204,3 +209,4 @@ private:
     T* m_obj;
 };
 
+};
