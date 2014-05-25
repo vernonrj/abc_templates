@@ -8,9 +8,6 @@
  * a bit more work to implement than python's Sequence class.
  */
 #include <algorithm>
-#include <iostream>
-#include <memory>
-#include <vector>
 
 #include <assert.h>
 
